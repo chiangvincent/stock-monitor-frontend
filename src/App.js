@@ -5,13 +5,13 @@ import StockTable from './StockTable.js';
 import AddStockForm from './AddStockForm';
 
 function App() {
-  const [stock, setStock] = useState('');
+  const [update, setUpdate] = useState(false);
 
   return (
     <div className="ui container center aligned">
       <StockHeader />
-      <AddStockForm stock={stock} setStock={setStock} />
-      <StockTable stock={stock} setStock={setStock} />
+      <AddStockForm update={update} setUpdate={setUpdate} />
+      <StockTable update={update} setUpdate={setUpdate} />
     </div >
   );
 }

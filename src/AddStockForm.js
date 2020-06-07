@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, Form } from 'semantic-ui-react';
 
-const AddStockForm = ({ stock, setStock }) => {
-    // const [stock, update] = useState('');
-
+const AddStockForm = ({ update, setUpdate }) => {
+    const [stock, setStock] = useState('');
     const handleSubmit = e => {
         e.preventDefault();
         console.log(stock);
@@ -15,6 +14,7 @@ const AddStockForm = ({ stock, setStock }) => {
         };
         fetch('/stocks', add_stock_request);
         setStock('');
+        setUpdate(true);
     };
 
     return (
