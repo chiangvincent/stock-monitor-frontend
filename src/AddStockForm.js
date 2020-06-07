@@ -25,7 +25,7 @@ const AddStockForm = ({ update, setUpdate, loading, setLoading }) => {
                 <Input type=' text' data-parse='uppercase'
                     placeholder='Add Stock...' value={stock}
                     onChange={e => setStock(e.target.value)} />
-                {loading ? <Button loading>Loading</Button> : <Button action='submit'>Submit</Button>}
+                {update ? <Button loading>Loading</Button> : <Button action='submit'>Submit</Button>}
             </Form.Group>
         </Form>
     );
