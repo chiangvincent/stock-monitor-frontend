@@ -6,12 +6,15 @@ import AddStockForm from './AddStockForm';
 
 function App() {
   const [update, setUpdate] = useState(false);
+  const [stockData, setStockData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
 
   return (
     <div className="ui container center aligned">
       <StockHeader />
-      <AddStockForm update={update} setUpdate={setUpdate} />
-      <StockTable update={update} setUpdate={setUpdate} />
+      <AddStockForm update={update} setUpdate={setUpdate} loading={loading} setLoading={setLoading} />
+      <StockTable update={update} setUpdate={setUpdate} stockData={stockData} setStockData={setStockData} loading={loading} setLoading={setLoading} />
     </div >
   );
 }

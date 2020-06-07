@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Table } from 'semantic-ui-react';
 
-const StockTable = ({ update, setUpdate }) => {
+const StockTable = ({ update, setUpdate, stockData, setStockData, loading, setLoading }) => {
     // should get new id of the stock
-    const [stockData, setStockData] = useState([]);
 
     useEffect(() => {
+        console.log("render");
         const get_stocks_request = {
             method: 'GET',
         };
         fetch('/stocks', get_stocks_request).then(res => res.json()).then(data => { setStockData(data) });
-        console.log(stockData);
-    })
+    }, []);
+
+    console.log(update);
+    useEffect(() => {
+        if (update) {
+            console.log("RErender");
+            const get_stocks_request = {
+                method: 'GET',
+            };
+            console.log("fetching");
+            fetch('/stocks', get_stocks_request).then(res => res.json()).then(data => {
+                setStockData(data);
+                setLoading(false);
+                setUpdate(false);
+            });
+            // await fetch('/stocks', get_stocks_request).then(res => res.json()).then(data => { setStockData(data) });
+            // setUpdate(false);
+            // setLoading(false);
+        }
+    }, [update]);
 
     return (
         < Table celled >
