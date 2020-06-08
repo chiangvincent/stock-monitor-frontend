@@ -32,9 +32,8 @@ const StockTable = ({ update, setUpdate, stockData, setStockData, loading, setLo
         }
     }, [update]);
 
-    const handleSelectRow = (e, stock) => {
-        console.log("hi");
-        console.log(stock.id);
+    const handleSelectRow = (stock) => {
+        console.log("stock id", stock.id);
         setSelectedStock(stock);
         setOpenModal(true);
     }
@@ -56,7 +55,7 @@ const StockTable = ({ update, setUpdate, stockData, setStockData, loading, setLo
 
                 <Table.Body>
                     {stockData.map(stock => (
-                        <Table.Row onClick={e => handleSelectRow(e, stock)}>
+                        <Table.Row onClick={() => handleSelectRow(stock)}>
                             <Table.Cell>{stock.symbol}</Table.Cell>
                             <Table.Cell>{stock.price}</Table.Cell>
                             <Table.Cell>{stock.ma50}</Table.Cell>
