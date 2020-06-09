@@ -18,14 +18,6 @@ const StockChart = ({ historicalData, loading }) => {
         return (
             <div style={{ height: 600 }}>
                 <ResponsiveLine
-                    sliceTooltip={({ slice }) => (
-                        <div>
-                            <div>Date: {slice.id}</div>
-                            {/* {slice.points.map((point) => (
-                                <div>X Value: {point.data.x}</div>
-                            ))} */}
-                        </div>
-                    )}
                     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
                     enableSlices='x'
                     data={historicalData}
@@ -55,6 +47,28 @@ const StockChart = ({ historicalData, loading }) => {
                         tickRotation: 30,
                         legendPosition: 'middle'
                     }}
+                    sliceTooltip={({ slice }) => (
+                        <div
+                            style={{
+                                background: 'white',
+                                padding: '9px 12px',
+                                border: '1px solid #ccc',
+                            }}
+                        >
+                            <h4>{slice.points[0].data.xFormatted}</h4>
+                            {slice.points.map(point => (
+                                <div
+                                    key={point.id}
+                                    style={{
+                                        color: point.serieColor,
+                                        padding: '3px 0',
+                                    }}
+                                >
+                                    <strong>{point.serieId}</strong>: {point.data.yFormatted}
+                                </div>
+                            ))}
+                        </div>
+                    )}
                     colors={{ scheme: 'category10' }}
                     pointSize={2}
                     pointBorderWidth={1}
