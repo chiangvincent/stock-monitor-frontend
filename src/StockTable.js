@@ -1,39 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Input, Table, Modal } from 'semantic-ui-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Table } from 'semantic-ui-react';
 import StockDetailsModal from './StockDetailsModal';
 
-const StockTable = ({ update, setUpdate, stockData, setStockData, loading, setLoading }) => {
-    // should get new id of the stock
+const StockTable = ({ update, setUpdate, newStockEntry, setNewStockEntry }) => {
 
+    const isFirstRender = useRef(true);
     const [openModal, setOpenModal] = useState(false);
     const [selectedStock, setSelectedStock] = useState({});
 
     useEffect(() => {
-        console.log("render");
-        const get_stocks_request = {
-            method: 'GET',
-        };
-        fetch('/stocks', get_stocks_request).then(res => res.json()).then(data => { setStockData(data) });
-    }, []);
-
-    console.log(update);
-    useEffect(() => {
-        if (update) {
-            console.log("RErender");
+        if (update || isFirstRender) {
+            if (isFirstRender) {
+                isFirstRender.current = false;
+            }
             const get_stocks_request = {
                 method: 'GET',
             };
-            console.log("fetching");
             fetch('/stocks', get_stocks_request).then(res => res.json()).then(data => {
-                setStockData(data);
-                setLoading(false);
+                setNewStockEntry(data);
                 setUpdate(false);
             });
         }
-    }, [update]);
+    }, [update, setUpdate, setNewStockEntry]);
 
     const handleSelectRow = (stock) => {
-        console.log("stock id", stock.id);
         setSelectedStock(stock);
         setOpenModal(true);
     }
@@ -54,7 +44,7 @@ const StockTable = ({ update, setUpdate, stockData, setStockData, loading, setLo
                 </Table.Header>
 
                 <Table.Body>
-                    {stockData.map(stock => (
+                    {newStockEntry.map(stock => (
                         <Table.Row onClick={() => handleSelectRow(stock)}>
                             <Table.Cell>{stock.symbol}</Table.Cell>
                             <Table.Cell>{stock.price}</Table.Cell>

@@ -2,44 +2,14 @@ import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 
-// class PriceCoordinate {
-//     constructor(date, price) {
-//         this.x = date;
-//         this.y = price;
-//     }
-// }
 
-// const formatData = (responseData) => {
-//     // format data for Nivo.
-//     // responseData is in the form of Array<{
-//     //     id:   string | number
-//     //     data: Array<{
-//     //         x: number | string | Date
-//     //         y: number | string | Date
-//     //     }>
-//     // }>
-//     return (
-//         responseData.map((individualResponse) => {
-//             const newData = individualResponse.data.map((coordinate) => (
-//                 new PriceCoordinate(new Date(coordinate.x), coordinate.y)
-//             ))
-//             return (
-//                 {
-//                     id: individualResponse.id,
-//                     data: newData
-//                 }
-//             );
-//         })
-//     )
-// }
-
-const Chart = ({ historicalData, loading }) => {
+const StockChart = ({ historicalData, loading }) => {
     if (loading) {
         return (
             <div style={{ height: 600 }}>
                 <Segment>
-                    <Dimmer active>
-                        <Loader indeterminate>Fetching Historical Data...</Loader>
+                    <Dimmer active inverted>
+                        <Loader size='large' inverted indeterminate>Fetching Historical Data...</Loader>
                     </Dimmer>
                 </Segment>
             </div>
@@ -48,7 +18,16 @@ const Chart = ({ historicalData, loading }) => {
         return (
             <div style={{ height: 600 }}>
                 <ResponsiveLine
+                    sliceTooltip={({ slice }) => (
+                        <div>
+                            <div>Date: {slice.id}</div>
+                            {/* {slice.points.map((point) => (
+                                <div>X Value: {point.data.x}</div>
+                            ))} */}
+                        </div>
+                    )}
                     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                    enableSlices='x'
                     data={historicalData}
                     xScale={{
                         type: 'time',
@@ -117,4 +96,4 @@ const Chart = ({ historicalData, loading }) => {
     }
 }
 
-export default Chart;
+export default StockChart;

@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Input, Form } from 'semantic-ui-react';
 
-const AddStockForm = ({ update, setUpdate, loading, setLoading }) => {
+const AddStockForm = ({ update, setUpdate }) => {
     const [stock, setStock] = useState('');
 
     const handleSubmit = e => {
-        setLoading(true);
         e.preventDefault();
-        console.log(stock);
         const add_stock_request = {
             method: 'POST',
             body: JSON.stringify({
@@ -18,7 +16,7 @@ const AddStockForm = ({ update, setUpdate, loading, setLoading }) => {
         setStock('');
         setUpdate(true);
     };
-    console.log("rendering add stock form", loading);
+
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group>

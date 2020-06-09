@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Header, Image, Modal } from 'semantic-ui-react';
-import Chart from './StockHistoricalChart';
+import { Modal } from 'semantic-ui-react';
+import StockChart from './StockChart';
 
 const StockDetailsModal = ({ stock, openModal, setOpenModal }) => {
     const [historicalData, setHistoricalData] = useState({});
@@ -22,14 +22,12 @@ const StockDetailsModal = ({ stock, openModal, setOpenModal }) => {
         }
     }, [stock]);
 
-
     return (
         <Modal size='large' closeIcon onClose={handleCloseModal} open={openModal} centered={false}>
             <Modal.Header>{stock.symbol} Stock Historical Data</Modal.Header>
             <Modal.Content>
                 <Modal.Description>
-                    <Header>Historical Chart</Header>
-                    <Chart historicalData={historicalData} loading={loading} />
+                    <StockChart historicalData={historicalData} loading={loading} />
                 </Modal.Description>
             </Modal.Content>
         </Modal >
