@@ -2,21 +2,41 @@ import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
+// class PriceCoordinate {
+//     constructor(date, price) {
+//         this.x = date;
+//         this.y = price;
+//     }
+// }
+
+// const formatData = (responseData) => {
+//     // format data for Nivo.
+//     // responseData is in the form of Array<{
+//     //     id:   string | number
+//     //     data: Array<{
+//     //         x: number | string | Date
+//     //         y: number | string | Date
+//     //     }>
+//     // }>
+//     return (
+//         responseData.map((individualResponse) => {
+//             const newData = individualResponse.data.map((coordinate) => (
+//                 new PriceCoordinate(new Date(coordinate.x), coordinate.y)
+//             ))
+//             return (
+//                 {
+//                     id: individualResponse.id,
+//                     data: newData
+//                 }
+//             );
+//         })
+//     )
+// }
 
 const Chart = ({ historicalData, loading }) => {
-    console.log("historical data", historicalData)
-    console.log("loading data", loading)
-    console.log("historical data", historicalData)
-    console.log("data", data)
     if (loading) {
-        console.log("loading");
         return (
-            <div>
+            <div style={{ height: 600 }}>
                 <Segment>
                     <Dimmer active>
                         <Loader indeterminate>Fetching Historical Data...</Loader>
@@ -26,39 +46,43 @@ const Chart = ({ historicalData, loading }) => {
         )
     } else {
         return (
-            <div style={{ height: 400 }}>
+            <div style={{ height: 600 }}>
                 <ResponsiveLine
-                    data={historicalData}
                     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                    xScale={{ type: 'point' }}
-                    yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-                    axisTop={null}
-                    axisRight={null}
-                    axisBottom={{
-                        orient: 'bottom',
-                        tickSize: 5,
-                        tickPadding: 5,
-                        tickRotation: 0,
-                        legend: 'transportation',
-                        legendOffset: 36,
-                        legendPosition: 'middle'
+                    data={historicalData}
+                    xScale={{
+                        type: 'time',
+                        format: '%Y-%m-%d',
+                        useUTC: false,
+                        precision: 'day',
                     }}
+                    xFormat="time:%Y-%m-%d"
+                    yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
                     axisLeft={{
                         orient: 'left',
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 0,
-                        legend: 'count',
+                        legend: 'Closing Price ($)',
                         legendOffset: -40,
                         legendPosition: 'middle'
                     }}
-                    colors={{ scheme: 'nivo' }}
-                    pointSize={10}
-                    pointColor={{ theme: 'background' }}
-                    pointBorderWidth={2}
-                    pointBorderColor={{ from: 'serieColor' }}
-                    pointLabel="y"
-                    pointLabelYOffset={-12}
+                    axisBottom={{
+                        format: '%b %Y',
+                        tickValues: 'every month',
+                        orient: 'bottom',
+                        tickSize: 5,
+                        tickPadding: 5,
+                        tickRotation: 30,
+                        legendPosition: 'middle'
+                    }}
+                    colors={{ scheme: 'category10' }}
+                    pointSize={2}
+                    pointBorderWidth={1}
+                    pointBorderColor={{
+                        from: 'color',
+                        modifiers: [['darker', 0.3]],
+                    }}
                     useMesh={true}
                     legends={[
                         {
@@ -86,10 +110,11 @@ const Chart = ({ historicalData, loading }) => {
                             ]
                         }
                     ]}
+                    lineWidth={1}
                 />
             </div>
         );
     }
 }
 
-export default Chart
+export default Chart;

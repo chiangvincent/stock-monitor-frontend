@@ -24,7 +24,7 @@ const StockDetailsModal = ({ stock, openModal, setOpenModal }) => {
 
 
     return (
-        <Modal closeIcon onClose={handleCloseModal} open={openModal} centered={false}>
+        <Modal size='large' closeIcon onClose={handleCloseModal} open={openModal} centered={false}>
             <Modal.Header>{stock.symbol} Stock Historical Data</Modal.Header>
             <Modal.Content>
                 <Modal.Description>
