@@ -26,7 +26,7 @@ const StockTable = ({ update, setUpdate, newStockEntry, setNewStockEntry }) => {
     const handleSelectRow = (stock) => {
         setSelectedStock(stock);
         setOpenModal(true);
-    }
+    };
 
     return (
         <div>

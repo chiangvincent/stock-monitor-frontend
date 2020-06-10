@@ -9,13 +9,13 @@ function App() {
   const [newStockEntry, setNewStockEntry] = useState([]);
 
   return (
-    <div className="ui container center aligned">
+    <div className='ui container center aligned'>
       <StockHeader />
       <AddStockForm update={update} setUpdate={setUpdate} />
       <StockTable update={update} setUpdate={setUpdate}
         newStockEntry={newStockEntry} setNewStockEntry={setNewStockEntry} />
-    </div >
+    </div>
   );
-}
+};
 
 export default App;

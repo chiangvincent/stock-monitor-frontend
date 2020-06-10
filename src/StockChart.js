@@ -13,7 +13,7 @@ const StockChart = ({ historicalData, loading }) => {
                     </Dimmer>
                 </Segment>
             </div>
-        )
+        );
     } else {
         return (
             <div style={{ height: 600 }}>
@@ -27,7 +27,7 @@ const StockChart = ({ historicalData, loading }) => {
                         useUTC: false,
                         precision: 'day',
                     }}
-                    xFormat="time:%Y-%m-%d"
+                    xFormat='time:%Y-%m-%d'
                     yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
                     axisLeft={{
                         orient: 'left',
@@ -108,6 +108,6 @@ const StockChart = ({ historicalData, loading }) => {
             </div>
         );
     }
-}
+};
 
 export default StockChart;

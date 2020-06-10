@@ -8,7 +8,7 @@ const StockDetailsModal = ({ stock, openModal, setOpenModal }) => {
 
     const handleCloseModal = () => {
         setOpenModal(false);
-    }
+    };
 
     useEffect(() => {
         if (stock.id) {
@@ -24,14 +24,14 @@ const StockDetailsModal = ({ stock, openModal, setOpenModal }) => {
 
     return (
         <Modal size='large' closeIcon onClose={handleCloseModal} open={openModal} centered={false}>
-            <Modal.Header>{stock.symbol} Stock Historical Data</Modal.Header>
+            <Modal.Header className='ui icon center aligned header'>{stock.symbol} Stock Historical Data</Modal.Header>
             <Modal.Content>
                 <Modal.Description>
                     <StockChart historicalData={historicalData} loading={loading} />
                 </Modal.Description>
             </Modal.Content>
         </Modal >
-    )
+    );
 };
 
 export default StockDetailsModal;
